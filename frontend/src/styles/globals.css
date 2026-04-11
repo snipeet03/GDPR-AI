@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: #0a0b0f; color: #f0f2ff; font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #111318; }
+  ::-webkit-scrollbar-thumb { background: #2d3148; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #4f8ef7; }
+  ::selection { background: #4f8ef733; color: #f0f2ff; }
+}
+
+@layer components {
+  .glass {
+    background: rgba(30, 33, 48, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(45, 49, 72, 0.6);
+  }
+  .glass-strong {
+    background: rgba(17, 19, 24, 0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(79, 142, 247, 0.15);
+  }
+  .btn-primary {
+    @apply bg-gradient-to-r from-accent-blue to-accent-cyan text-bg-primary font-semibold px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-200 active:scale-95;
+  }
+  .btn-ghost {
+    @apply bg-surface text-text-secondary hover:bg-surface-hover hover:text-text-primary px-4 py-2 rounded-xl transition-all duration-200;
+  }
+  .input-field {
+    @apply w-full bg-surface border border-surface-border rounded-xl px-4 py-3 text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-blue/60 focus:ring-1 focus:ring-accent-blue/30 transition-all duration-200;
+  }
+  .glow-blue { box-shadow: 0 0 30px rgba(79, 142, 247, 0.2); }
+  .glow-cyan { box-shadow: 0 0 30px rgba(0, 212, 255, 0.2); }
+  .gradient-text {
+    background: linear-gradient(135deg, #4f8ef7, #00d4ff, #9b5de5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .noise-bg {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  .text-gradient { @apply gradient-text; }
+  .animate-typing::after { content: '▋'; animation: blink 1s step-end infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+}
