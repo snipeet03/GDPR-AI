@@ -15,16 +15,17 @@
 
 @layer components {
   .glass {
-    background: rgba(30, 33, 48, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(45, 49, 72, 0.6);
-  }
-  .glass-strong {
-    background: rgba(17, 19, 24, 0.85);
+    background: rgba(30, 33, 48, 0.4);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(79, 142, 247, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.5);
+  }
+  .glass-strong {
+    background: rgba(10, 11, 15, 0.7);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
   }
   .btn-primary {
     @apply bg-gradient-to-r from-accent-blue to-accent-cyan text-bg-primary font-semibold px-5 py-2.5 rounded-xl hover:opacity-90 transition-all duration-200 active:scale-95;

@@ -49,63 +49,73 @@ export default function ChatPage() {
   }
 
   return (
-    <div className="flex h-screen bg-bg-primary overflow-hidden">
+    <div className="flex h-screen bg-bg-primary overflow-hidden relative">
       <Sidebar onNewChat={handleNewChat} onSelectChat={handleSelectChat} />
 
-      {/* Main chat area */}
-      <div className={`flex-1 flex flex-col transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
-        {/* Header */}
-        <div className="h-14 border-b border-surface-border glass-strong flex items-center px-4 gap-3 flex-shrink-0">
-          {!sidebarOpen && (
-            <button onClick={toggleSidebar} className="text-text-muted hover:text-text-secondary transition-colors">
-              <Menu size={18} />
-            </button>
-          )}
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-text-primary truncate">
-              {activeChat?.title || 'GDPR AI Assistant'}
-            </p>
-            <p className="text-xs text-text-muted">Powered by Groq · RAG-enabled · No hallucination</p>
+      {/* Main chat wrapper */}
+      <div className={`flex-1 flex flex-col relative transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
+        
+        {/* Floating Header */}
+        <div className="absolute top-0 w-full z-20 h-16 flex items-center px-6 justify-between pointer-events-none">
+          <div className="flex items-center gap-4 pointer-events-auto">
+            {!sidebarOpen && (
+              <button onClick={toggleSidebar} className="text-text-muted hover:text-text-primary transition-colors p-2 hover:bg-surface rounded-xl">
+                <Menu size={20} />
+              </button>
+            )}
+            <div className="glass px-4 py-1.5 rounded-full flex items-center gap-2 border border-surface-border/50 shadow-sm">
+              <span className="text-sm font-medium text-text-primary max-w-[200px] truncate">
+                {activeChat?.title || 'GDPR Assistant'}
+              </span>
+              <div className="w-1 h-1 rounded-full bg-surface-border"></div>
+              <span className="text-xs text-text-muted flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-accent-green animate-pulse-slow" />
+                Live
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-accent-green animate-pulse-slow" />
-            <span className="text-xs text-text-muted">Live</span>
+          <div className="pointer-events-auto">
           </div>
         </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto">
+        {/* Scrollable Messages Area */}
+        <div className="flex-1 overflow-y-auto pb-48 pt-16 flex justify-center scrollbar-hide">
           {messages.length === 0 ? (
             <WelcomeScreen onSuggest={handleSend} />
           ) : (
-            <div className="max-w-3xl mx-auto p-6">
+            <div className="w-full max-w-3xl px-4 sm:px-6 mt-6">
               <AnimatePresence>
                 {messages.map((msg, i) => (
                   <ChatMessage key={i} message={msg} />
                 ))}
               </AnimatePresence>
+              
               {isLoading && (
-                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-3 mb-6">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-accent-cyan/20 to-accent-blue/20 border border-accent-cyan/30 flex items-center justify-center mt-0.5 flex-shrink-0">
-                    <div className="w-3 h-3 border-2 border-accent-cyan/30 border-t-accent-cyan rounded-full animate-spin" />
+                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-4 mb-8 w-full group">
+                  <div className="w-8 h-8 rounded-full border border-surface-border bg-surface flex items-center justify-center flex-shrink-0">
+                    <span className="w-3 h-3 border-2 border-accent-cyan/30 border-t-accent-cyan rounded-full animate-spin" />
                   </div>
-                  <div className="glass rounded-2xl rounded-tl-sm px-4 py-3 border border-surface-border">
-                    <div className="flex gap-1.5 items-center h-5">
+                  <div className="flex items-center pt-1.5">
+                    <div className="flex gap-1.5">
                       {[0,1,2].map(i => (
-                        <motion.span key={i} className="w-1.5 h-1.5 bg-accent-cyan/50 rounded-full"
+                        <motion.span key={i} className="w-1.5 h-1.5 bg-text-muted rounded-full"
                           animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 0.9, delay: i * 0.2 }} />
                       ))}
                     </div>
                   </div>
                 </motion.div>
               )}
-              <div ref={bottomRef} />
+              <div ref={bottomRef} className="h-4" />
             </div>
           )}
         </div>
 
-        {/* Input */}
-        <ChatInput onSend={handleSend} isLoading={isLoading} />
+        {/* Floating Input Area */}
+        <div className="absolute bottom-0 w-full bg-gradient-to-t from-bg-primary via-bg-primary/95 to-transparent pb-6 pt-16 pointer-events-none flex justify-center z-20">
+          <div className="w-full max-w-3xl px-4 sm:px-6 pointer-events-auto">
+            <ChatInput onSend={handleSend} isLoading={isLoading} />
+          </div>
+        </div>
       </div>
     </div>
   )
