@@ -19,24 +19,21 @@ const TOPICS = [
 
 export default function WelcomeScreen({ onSuggest }) {
   return (
-    <div className="flex-1 flex flex-col items-center justify-center px-4 pt-10 sm:pt-20 w-full max-w-4xl mx-auto">
-      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, ease: "easeOut" }} className="text-center mb-12">
-        <div className="w-16 h-16 rounded-[20px] bg-gradient-to-tr from-accent-cyan/90 to-accent-blue/90 mx-auto mb-6 flex items-center justify-center shadow-lg shadow-accent-cyan/20">
-          <ShieldCheck size={32} className="text-white absolute" />
+    <div className="flex-1 flex flex-col items-center justify-center px-4 pt-10 sm:pt-20 w-full max-w-2xl mx-auto">
+      <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.4 }} className="text-center mb-10">
+        <div className="w-10 h-10 rounded-lg bg-surface border border-surface-border mx-auto mb-4 flex items-center justify-center">
+          <ShieldCheck size={20} className="text-text-primary" />
         </div>
-        <h1 className="text-3xl sm:text-4xl font-semibold text-text-primary mb-3">Hi, I'm the GDPR Assistant</h1>
-        <p className="text-text-muted text-base max-w-lg mx-auto">I can help you navigate GDPR compliance, understand cybersecurity protocols, and analyze incident response requirements.</p>
+        <h1 className="text-2xl font-medium text-text-primary mb-2">How can I help you today?</h1>
+        <p className="text-text-muted text-sm max-w-md mx-auto">Expert GDPR and Cybersecurity assistance.</p>
       </motion.div>
 
-      {/* Quick start prompts - Grid aligned like modern AI */}
-      <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2, duration: 0.5 }} className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-3">
-        {TOPICS.map((t, i) => (
+      {/* Minimal prompts */}
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.1, duration: 0.4 }} className="flex flex-wrap justify-center gap-2">
+        {TOPICS.slice(0, 4).map((t, i) => (
           <button key={i} onClick={() => onSuggest(t)}
-            className="text-left p-4 rounded-2xl bg-surface/40 hover:bg-surface border border-surface-border/50 hover:border-surface-border text-text-secondary hover:text-text-primary transition-all group flex flex-col gap-2">
-            <span className="text-[13px] leading-relaxed">{t}</span>
-            <div className="w-6 h-6 rounded-full bg-surface-border/30 group-hover:bg-bg-primary flex items-center justify-center transition-colors">
-               <svg className="w-3 h-3 text-text-muted group-hover:text-text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-            </div>
+            className="text-[12px] px-3 py-1.5 rounded-full border border-surface-border text-text-secondary hover:text-text-primary hover:border-text-muted transition-colors">
+            {t}
           </button>
         ))}
       </motion.div>

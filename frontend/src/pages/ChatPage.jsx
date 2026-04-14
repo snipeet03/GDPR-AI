@@ -56,21 +56,16 @@ export default function ChatPage() {
       <div className={`flex-1 flex flex-col relative transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
         
         {/* Floating Header */}
-        <div className="absolute top-0 w-full z-20 h-16 flex items-center px-6 justify-between pointer-events-none">
-          <div className="flex items-center gap-4 pointer-events-auto">
+        <div className="absolute top-0 w-full z-20 h-14 flex items-center px-4 justify-between pointer-events-none bg-bg-primary border-b border-surface-border">
+          <div className="flex items-center gap-2 pointer-events-auto">
             {!sidebarOpen && (
-              <button onClick={toggleSidebar} className="text-text-muted hover:text-text-primary transition-colors p-2 hover:bg-surface rounded-xl">
-                <Menu size={20} />
+              <button onClick={toggleSidebar} className="text-text-muted hover:text-text-primary transition-colors p-1.5 hover:bg-surface rounded-md">
+                <Menu size={18} />
               </button>
             )}
-            <div className="glass px-4 py-1.5 rounded-full flex items-center gap-2 border border-surface-border/50 shadow-sm">
-              <span className="text-sm font-medium text-text-primary max-w-[200px] truncate">
+            <div className="flex items-center gap-2 pl-2">
+              <span className="text-[13px] font-medium text-text-primary max-w-[200px] truncate">
                 {activeChat?.title || 'GDPR Assistant'}
-              </span>
-              <div className="w-1 h-1 rounded-full bg-surface-border"></div>
-              <span className="text-xs text-text-muted flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-accent-green animate-pulse-slow" />
-                Live
               </span>
             </div>
           </div>
@@ -79,7 +74,7 @@ export default function ChatPage() {
         </div>
 
         {/* Scrollable Messages Area */}
-        <div className="flex-1 overflow-y-auto pb-48 pt-16 flex justify-center scrollbar-hide">
+        <div className="flex-1 overflow-y-auto pb-32 pt-14 flex justify-center scrollbar-hide">
           {messages.length === 0 ? (
             <WelcomeScreen onSuggest={handleSend} />
           ) : (
@@ -92,14 +87,14 @@ export default function ChatPage() {
               
               {isLoading && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex gap-4 mb-8 w-full group">
-                  <div className="w-8 h-8 rounded-full border border-surface-border bg-surface flex items-center justify-center flex-shrink-0">
-                    <span className="w-3 h-3 border-2 border-accent-cyan/30 border-t-accent-cyan rounded-full animate-spin" />
+                  <div className="w-6 h-6 rounded-md border border-surface-border bg-bg-primary flex items-center justify-center flex-shrink-0 mt-1">
+                    <span className="w-2.5 h-2.5 border border-text-muted border-t-text-primary rounded-full animate-spin" />
                   </div>
                   <div className="flex items-center pt-1.5">
-                    <div className="flex gap-1.5">
+                    <div className="flex gap-1">
                       {[0,1,2].map(i => (
                         <motion.span key={i} className="w-1.5 h-1.5 bg-text-muted rounded-full"
-                          animate={{ y: [0, -6, 0] }} transition={{ repeat: Infinity, duration: 0.9, delay: i * 0.2 }} />
+                          animate={{ y: [0, -4, 0] }} transition={{ repeat: Infinity, duration: 0.9, delay: i * 0.2 }} />
                       ))}
                     </div>
                   </div>
@@ -110,8 +105,8 @@ export default function ChatPage() {
           )}
         </div>
 
-        {/* Floating Input Area */}
-        <div className="absolute bottom-0 w-full bg-gradient-to-t from-bg-primary via-bg-primary/95 to-transparent pb-6 pt-16 pointer-events-none flex justify-center z-20">
+        {/* Minimal Input Area */}
+        <div className="absolute bottom-0 w-full bg-bg-primary pb-4 pt-4 pointer-events-none flex justify-center z-20">
           <div className="w-full max-w-3xl px-4 sm:px-6 pointer-events-auto">
             <ChatInput onSend={handleSend} isLoading={isLoading} />
           </div>
