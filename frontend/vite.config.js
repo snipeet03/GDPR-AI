@@ -8,8 +8,12 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://localhost:5000',
-        changeOrigin: true
+        changeOrigin: true,
+        rewrite: (path) => path
       }
     }
+  },
+  define: {
+    __API_URL__: JSON.stringify(process.env.VITE_API_URL)
   }
 })
