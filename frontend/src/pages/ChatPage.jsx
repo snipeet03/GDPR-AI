@@ -53,7 +53,7 @@ export default function ChatPage() {
       <Sidebar onNewChat={handleNewChat} onSelectChat={handleSelectChat} />
 
       {/* Main chat wrapper */}
-      <div className={`flex-1 flex flex-col relative transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
+      <div className={`flex-1 flex flex-col relative min-h-0 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-0'}`}>
         
         {/* Floating Header */}
         <div className="absolute top-0 w-full z-20 h-14 flex items-center px-4 justify-between pointer-events-none bg-bg-primary border-b border-surface-border">
@@ -74,7 +74,7 @@ export default function ChatPage() {
         </div>
 
         {/* Scrollable Messages Area */}
-        <div className="flex-1 overflow-y-auto pb-32 pt-14 flex justify-center scrollbar-hide">
+        <div className="flex-1 min-h-0 overflow-y-auto pt-14 flex justify-center scrollbar-hide">
           {messages.length === 0 ? (
             <WelcomeScreen onSuggest={handleSend} />
           ) : (
@@ -106,8 +106,8 @@ export default function ChatPage() {
         </div>
 
         {/* Minimal Input Area */}
-        <div className="absolute bottom-0 w-full bg-bg-primary pb-4 pt-4 pointer-events-none flex justify-center z-20">
-          <div className="w-full max-w-3xl px-4 sm:px-6 pointer-events-auto">
+        <div className="shrink-0 w-full bg-bg-primary/95 backdrop-blur-sm border-t border-surface-border pb-4 pt-4 flex justify-center z-20">
+          <div className="w-full max-w-3xl px-4 sm:px-6">
             <ChatInput onSend={handleSend} isLoading={isLoading} />
           </div>
         </div>
